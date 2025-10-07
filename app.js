@@ -134,11 +134,11 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
-    res.locals.currentUser = req.user; // req.user is user infomation in session that passport define for us
-    res.locals.success = req.flash('success'); // message when success is invoked in route handler
+    res.locals.currentUser = req.user || null; // ensures currentUser is always defined
+    res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
-})
+});
 
 
 app.use('/', userRoutes);
